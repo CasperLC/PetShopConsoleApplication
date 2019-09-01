@@ -23,34 +23,97 @@ namespace PetShop2019.Core.ApplicationService.Implementation
 
         public List<Pet> GetPetsByType(string type)
         {
-            throw new NotImplementedException();
+            List<Pet> temp = new List<Pet>();
+            foreach (var pet in _petRepo.ReadPets().ToList())
+            {
+                if (pet.Type.ToLower().Equals(type.ToLower()))
+                {
+                    temp.Add(pet);
+                }
+            }
+
+            return temp;
         }
 
         public Pet CreatePet(string name, string type, DateTime birthday, DateTime solddate, string color, string previousowner,
             double price)
         {
-            throw new NotImplementedException();
+            var NewPet = new Pet
+            {
+                Name = name,
+                Type = type,
+                Birthdate = birthday,
+                SoldDate = solddate,
+                Color = color,
+                PreviousOwner = previousowner,
+                Price = price
+            };
+
+            return _petRepo.CreatePet(NewPet);
         }
 
-        public void DeletePet(int id)
+        public Pet ReadPetById(int id)
         {
-            throw new NotImplementedException();
+            return _petRepo.ReadById(id);
+        }
+
+        public Pet DeletePet(int id)
+        {
+            return _petRepo.DeletePet(id);
         }
 
         public Pet UpdatePet(int id, string newName, string newType, DateTime newBirthday, DateTime newSoldDate, string newColor,
             string newPreviousOwner, double newPrice)
         {
-            throw new NotImplementedException();
+            var NewPet = new Pet
+            {
+                ID = id,
+                Name = newName,
+                Type = newType,
+                Birthdate = newBirthday,
+                SoldDate = newSoldDate,
+                Color = newColor,
+                PreviousOwner = newPreviousOwner,
+                Price = newPrice
+            };
+
+            _petRepo.UpdatePet(NewPet);
+
+            return NewPet;
         }
 
         public List<Pet> SortPetsByPrice()
         {
-            throw new NotImplementedException();
+            List<Pet> SortedByPrice = _petRepo.ReadPets().ToList();
+            SortedByPrice.Sort();
+            return SortedByPrice;
         }
 
         public List<Pet> GetFiveCheapestPets()
         {
-            throw new NotImplementedException();
+            List<Pet> tempPetList = new List<Pet>();
+            int count = 0;
+            foreach (var pet in SortPetsByPrice())
+            {
+                if (count < 5)
+                {
+                    tempPetList.Add(pet);
+                    count++;
+                }   
+            }
+
+            return tempPetList;
+
+        }
+
+        public bool IdVerifier(int id)
+        {
+            if (id<=_petRepo.ReadPets().Count() && id>=1)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

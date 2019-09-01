@@ -22,8 +22,11 @@ namespace PetShop2019.Core.ApplicationService
             string previousowner,
             double price);
 
+        //Gets the pet with the given id
+        Pet ReadPetById(int id);
+
         //Deletes the pet with the given id
-        void DeletePet(int id);
+        Pet DeletePet(int id);
 
         //Updates a pet with the given id
         Pet UpdatePet(int id,
@@ -40,5 +43,8 @@ namespace PetShop2019.Core.ApplicationService
 
         //returns a list of the 5 cheapest pets available
         List<Pet> GetFiveCheapestPets();
+
+        //Verifies the id, returns true if the ID exits and false otherwise.
+        bool IdVerifier(int id);
     }
 }
