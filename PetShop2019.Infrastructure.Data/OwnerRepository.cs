@@ -7,7 +7,7 @@ namespace PetShop2019.Infrastructure.Data
     public class OwnerRepository: IOwnerRepository
     {
         private static FakeDB fakeDB = new FakeDB();
-        private static int id;
+        private static int id = fakeDB.OwnerList.Count+1;
 
         public IEnumerable<Owner> ReadOwners()
         {
