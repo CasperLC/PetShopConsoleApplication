@@ -9,13 +9,65 @@ namespace PetShop2019.Infrastructure.Data
     {
         public static IEnumerable<Pet> Pets;
         public List<Pet> PetList { get; set; }
+        public List<Owner> OwnerList { get; set; }
 
         public FakeDB()
         {
-            PetList = InitData();
+            OwnerList = InitOwnerData();
+            PetList = InitData(OwnerList);
         }
 
-        public static List<Pet> InitData()
+        public static List<Owner> InitOwnerData()
+        {
+            List<Owner> tempOwners = new List<Owner>();
+            var owner1 = new Owner
+            {
+                id = 1,
+                FirstName = "OwnerName_1",
+                LastName = "OwnerLastName_1",
+                Address = "OwnerAddress_1",
+                PhoneNumber = "OwnerPhone_1",
+                Email = "OwnerMail_1"
+            };
+            tempOwners.Add(owner1);
+
+            var owner2 = new Owner
+            {
+                id = 2,
+                FirstName = "OwnerName_2",
+                LastName = "OwnerLastName_2",
+                Address = "OwnerAddress_2",
+                PhoneNumber = "OwnerPhone_2",
+                Email = "OwnerMail_2"
+            };
+            tempOwners.Add(owner2);
+
+            var owner3 = new Owner
+            {
+                id = 3,
+                FirstName = "OwnerName_3",
+                LastName = "OwnerLastName_3",
+                Address = "OwnerAddress_3",
+                PhoneNumber = "OwnerPhone_3",
+                Email = "OwnerMail_3"
+            };
+            tempOwners.Add(owner3);
+
+            var owner4 = new Owner
+            {
+                id = 4,
+                FirstName = "OwnerName_4",
+                LastName = "OwnerLastName_4",
+                Address = "OwnerAddress_4",
+                PhoneNumber = "OwnerPhone_4",
+                Email = "OwnerMail_4"
+            };
+            tempOwners.Add(owner4);
+
+            return tempOwners;
+        }
+
+        public static List<Pet> InitData(List<Owner> owners)
         {
             List<Pet> temp = new List<Pet>();
             var pet1 = new Pet
@@ -26,7 +78,7 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Green",
-                PreviousOwner = "Pre-Owner_1",
+                PreviousOwner = owners[0],
                 Price = 100.00
             };
             temp.Add(pet1);
@@ -39,7 +91,7 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Blue",
-                PreviousOwner = "Pre-Owner_2",
+                PreviousOwner = owners[1],
                 Price = 200.00
             };
             temp.Add(pet2);
@@ -52,7 +104,7 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Black",
-                PreviousOwner = "Pre-Owner_3",
+                PreviousOwner = owners[2],
                 Price = 300.00
             };
             temp.Add(pet3);
@@ -65,7 +117,7 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Orange",
-                PreviousOwner = "Pre-Owner_4",
+                PreviousOwner = owners[3],
                 Price = 400.00
             };
             temp.Add(pet4);
@@ -78,7 +130,7 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Green",
-                PreviousOwner = "Pre-Owner_5",
+                PreviousOwner = owners[0],
                 Price = 500.00
             };
             temp.Add(pet5);
@@ -91,7 +143,7 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Blue",
-                PreviousOwner = "Pre-Owner_6",
+                PreviousOwner = owners[1],
                 Price = 600.00
             };
             temp.Add(pet6);
@@ -104,7 +156,7 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Black",
-                PreviousOwner = "Pre-Owner_7",
+                PreviousOwner = owners[2],
                 Price = 777.77
             };
             temp.Add(pet7);
@@ -117,7 +169,7 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Orange",
-                PreviousOwner = "Pre-Owner_8",
+                PreviousOwner = owners[3],
                 Price = 800.00
             };
             temp.Add(pet8);

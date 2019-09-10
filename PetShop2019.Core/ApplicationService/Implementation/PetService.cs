@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using PetShop2019.Core.DomainService;
 using PetShop2019.Core.Entities;
 
 namespace PetShop2019.Core.ApplicationService.Implementation
 {
-    public class PetService: IPetService
+    public class PetService : IPetService
     {
         private readonly IPetRepository _petRepo;
 
@@ -35,9 +36,23 @@ namespace PetShop2019.Core.ApplicationService.Implementation
             return temp;
         }
 
-        public Pet CreatePet(string name, string type, DateTime birthday, DateTime solddate, string color, string previousowner,
+        public Pet CreatePet(string name, string type, DateTime birthday, DateTime solddate, string color, Owner previousowner,
             double price)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new InvalidDataException("Invalid Data: The Pet's name can NOT be empty");
+            }
+            if (string.IsNullOrEmpty(type))
+            {
+                throw new InvalidDataException("Invalid Data: The Pet's type can NOT be empty");
+            }
+
+            if (!DateTime.TryParse(birthday.ToString(), out birthday) || string.IsNullOrEmpty(birthday.ToString()))
+            {
+                throw new InvalidDataException("Invalid Data: The Pet's birthday can NOT be empty");
+            }
+
             var NewPet = new Pet
             {
                 Name = name,
@@ -63,7 +78,7 @@ namespace PetShop2019.Core.ApplicationService.Implementation
         }
 
         public Pet UpdatePet(int id, string newName, string newType, DateTime newBirthday, DateTime newSoldDate, string newColor,
-            string newPreviousOwner, double newPrice)
+            Owner newPreviousOwner, double newPrice)
         {
             var NewPet = new Pet
             {
@@ -99,7 +114,7 @@ namespace PetShop2019.Core.ApplicationService.Implementation
                 {
                     tempPetList.Add(pet);
                     count++;
-                }   
+                }
             }
 
             return tempPetList;
@@ -108,7 +123,7 @@ namespace PetShop2019.Core.ApplicationService.Implementation
 
         public bool IdVerifier(int id)
         {
-            if (id<=_petRepo.ReadPets().Count() && id>=1)
+            if (id <= _petRepo.ReadPets().Count() && id >= 1)
             {
                 return true;
             }

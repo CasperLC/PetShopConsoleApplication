@@ -7,13 +7,11 @@ namespace PetShop2019.Infrastructure.Data
 {
     public class PetRepository: IPetRepository
     {
-        private FakeDB fakeDB;
-        private int id;
+        private  static FakeDB fakeDB = new FakeDB();
+        private static int id = fakeDB.PetList.Count+1;
 
         public PetRepository()
         {
-            this.fakeDB = new FakeDB();
-            this.id = fakeDB.PetList.Count + 1;
         }
         public IEnumerable<Pet> ReadPets()
         {

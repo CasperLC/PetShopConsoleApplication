@@ -19,7 +19,7 @@ namespace PetShop2019.Core.ApplicationService
             DateTime birthday,
             DateTime solddate,
             string color,
-            string previousowner,
+            Owner previousowner,
             double price);
 
         //Gets the pet with the given id
@@ -35,7 +35,7 @@ namespace PetShop2019.Core.ApplicationService
             DateTime newBirthday,
             DateTime newSoldDate,
             string newColor,
-            string newPreviousOwner,
+            Owner newPreviousOwner,
             double newPrice);
 
         //returns a list of pets sorted by price(descending)

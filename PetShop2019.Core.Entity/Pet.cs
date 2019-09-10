@@ -11,7 +11,7 @@ namespace PetShop2019.Core.Entities
         public DateTime Birthdate { get; set; }
         public DateTime SoldDate { get; set; }
         public string Color { get; set; }
-        public string PreviousOwner { get; set; }
+        public Owner PreviousOwner { get; set; }
         public double Price { get; set; }
 
         public int CompareTo(Pet other)
@@ -32,7 +32,7 @@ namespace PetShop2019.Core.Entities
 
         public override string ToString()
         {
-            return "ID: " + ID + ", Name: " + Name + ", Type: " + Type + ", Color: " + Color + ", Date of Birth: " + Birthdate + ", Sold Date: " + SoldDate + ", Previous Owner: " + PreviousOwner + ", Price: " + Price;
+            return "ID: " + ID + ", Name: " + Name + ", Type: " + Type + ", Color: " + Color + ", Date of Birth: " + Birthdate + ", Sold Date: " + SoldDate + ", Previous Owner: " + PreviousOwner.FirstName + " "+PreviousOwner.LastName + ", Price: " + Price;
         }
     }
 }
