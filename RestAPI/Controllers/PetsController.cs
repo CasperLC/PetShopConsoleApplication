@@ -43,17 +43,36 @@ namespace RestAPI.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Pet pet)
+        public ActionResult<Pet> Put(int id, [FromBody] Pet pet)
         {
-            _petService.UpdatePet(id, pet.Name, pet.Type, pet.Birthdate, pet.SoldDate, pet.Color, pet.PreviousOwner,
-                pet.Price);
+            if (id != pet.ID)
+            {
+                return BadRequest($"The Id you entered and that of the pet does NOT match, you can't change the id");
+            }
+            try
+            {
+                return Ok(_petService.UpdatePet(id, pet.Name, pet.Type, pet.Birthdate, pet.SoldDate, pet.Color, pet.PreviousOwner,
+                    pet.Price));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Pet> Delete(int id)
         {
-            _petService.DeletePet(id);
+            try
+            {
+                return Ok(_petService.DeletePet(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
     }
 }

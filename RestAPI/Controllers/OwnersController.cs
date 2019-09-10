@@ -19,7 +19,7 @@ namespace RestAPI.Controllers
         {
             _ownerService = ownerService;
         }
-        // GET api/pets
+        // GET api/owners
         [HttpGet]
         public ActionResult<IEnumerable<Owner>> Get()
         {
@@ -28,23 +28,46 @@ namespace RestAPI.Controllers
 
         // POST api/owners
         [HttpPost]
-        public void Post([FromBody] Owner owner)
+        public ActionResult<Owner> Post([FromBody] Owner owner)
         {
-            _ownerService.CreateOwner(owner);
+            try
+            {
+                return Ok(_ownerService.CreateOwner(owner));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         // PUT api/owners/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Owner owner)
+        public ActionResult<Owner> Put(int id, [FromBody] Owner owner)
         {
-            _ownerService.UpdateOwner(id, owner);
+            try
+            {
+                return Ok(_ownerService.UpdateOwner(id, owner));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         // DELETE api/owners/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Owner> Delete(int id)
         {
-            _ownerService.DeleteOwner(id);
+            try
+            {
+               return  Ok(_ownerService.DeleteOwner(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

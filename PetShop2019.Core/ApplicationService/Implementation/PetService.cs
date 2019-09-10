@@ -52,7 +52,20 @@ namespace PetShop2019.Core.ApplicationService.Implementation
             {
                 throw new InvalidDataException("Invalid Data: The Pet's birthday can NOT be empty");
             }
+            if (!DateTime.TryParse(solddate.ToString(), out solddate))
+            {
+                throw new InvalidDataException($"The Pet's Sold Date has to be in a readable format such as MM/dd/YYYY");
+            }
 
+            if (string.IsNullOrEmpty(color))
+            {
+                throw new InvalidDataException($"Invalid Data: Please make sure to enter the color of the pet");
+            }
+
+            if (price < 0)
+            {
+                throw new InvalidDataException($"The price can not be negative, please enter a valid price");
+            }
             var NewPet = new Pet
             {
                 Name = name,
@@ -69,17 +82,53 @@ namespace PetShop2019.Core.ApplicationService.Implementation
 
         public Pet ReadPetById(int id)
         {
+            if (!IdVerifier(id))
+            {
+                throw new InvalidDataException($"The Id you entered does NOT exist");
+            }
             return _petRepo.ReadById(id);
         }
 
         public Pet DeletePet(int id)
         {
+            if (!IdVerifier(id))
+            {
+                throw new InvalidDataException($"The Id you entered does NOT exist");
+            }
             return _petRepo.DeletePet(id);
         }
 
         public Pet UpdatePet(int id, string newName, string newType, DateTime newBirthday, DateTime newSoldDate, string newColor,
             Owner newPreviousOwner, double newPrice)
         {
+            if (string.IsNullOrEmpty(newName))
+            {
+                throw new InvalidDataException("Invalid Data: The Pet's name can NOT be empty");
+            }
+            if (string.IsNullOrEmpty(newType))
+            {
+                throw new InvalidDataException("Invalid Data: The Pet's type can NOT be empty");
+            }
+
+            if (!DateTime.TryParse(newBirthday.ToString(), out newBirthday) || string.IsNullOrEmpty(newBirthday.ToString()))
+            {
+                throw new InvalidDataException("Invalid Data: The Pet's birthday can NOT be empty");
+            }
+            if (!DateTime.TryParse(newSoldDate.ToString(), out newSoldDate))
+            {
+                throw new InvalidDataException($"The Pet's Sold Date has to be in a readable format such as MM/dd/YYYY");
+            }
+
+            if (string.IsNullOrEmpty(newColor))
+            {
+                throw new InvalidDataException($"Invalid Data: Please make sure to enter the color of the pet");
+            }
+
+            if (newPrice < 0)
+            {
+                throw new InvalidDataException($"The price can not be negative, please enter a valid price");
+            }
+
             var NewPet = new Pet
             {
                 ID = id,
@@ -123,9 +172,12 @@ namespace PetShop2019.Core.ApplicationService.Implementation
 
         public bool IdVerifier(int id)
         {
-            if (id <= _petRepo.ReadPets().Count() && id >= 1)
+            foreach (var pet in GetPets())
             {
-                return true;
+                if (id == pet.ID)
+                {
+                    return true;
+                }
             }
 
             return false;
