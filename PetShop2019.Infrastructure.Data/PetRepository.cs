@@ -32,6 +32,11 @@ namespace PetShop2019.Infrastructure.Data
 
         }
 
+        public Pet ReadByIdWithOwner(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Pet CreatePet(Pet pet)
         {
             pet.ID=id;

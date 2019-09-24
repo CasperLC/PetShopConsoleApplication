@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PetShop2019.Core.Entities
 {
@@ -11,7 +12,8 @@ namespace PetShop2019.Core.Entities
         public DateTime Birthdate { get; set; }
         public DateTime SoldDate { get; set; }
         public string Color { get; set; }
-        public Owner PreviousOwner { get; set; }
+        //public List<Owner> PreviousOwner { get; set; }
+        public List<PetOwner> PetOwners { get; set; }
         public double Price { get; set; }
 
         public int CompareTo(Pet other)
@@ -30,9 +32,9 @@ namespace PetShop2019.Core.Entities
             }
         }
 
-        public override string ToString()
+        /*public override string ToString()
         {
             return "ID: " + ID + ", Name: " + Name + ", Type: " + Type + ", Color: " + Color + ", Date of Birth: " + Birthdate + ", Sold Date: " + SoldDate + ", Previous Owner: " + PreviousOwner.FirstName + " "+PreviousOwner.LastName + ", Price: " + Price;
-        }
+        }*/
     }
 }

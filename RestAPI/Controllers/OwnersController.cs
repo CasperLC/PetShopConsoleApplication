@@ -26,6 +26,20 @@ namespace RestAPI.Controllers
             return _ownerService.ReadOwners();
         }
 
+        // GET api/owners/5
+        [HttpGet("{id}")]
+        public ActionResult<Owner> Get(int id)
+        {
+            try
+            {
+                return _ownerService.ReadOwnerById(id);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         // POST api/owners
         [HttpPost]
         public ActionResult<Owner> Post([FromBody] Owner owner)

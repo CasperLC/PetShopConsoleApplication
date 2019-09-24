@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PetShop.Infrastructure.SQL\PetShop.Infrastructure.SQL.csproj" />
     <ProjectReference Include="..\PetShop2019.Core.Entity\PetShop2019.Core.Entities.csproj" />
     <ProjectReference Include="..\PetShop2019.Core\PetShop2019.Core.csproj" />
     <ProjectReference Include="..\PetShop2019.Infrastructure.Data\PetShop2019.Infrastructure.Data.csproj" />

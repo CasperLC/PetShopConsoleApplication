@@ -10,6 +10,8 @@ namespace PetShop2019.Core.DomainService
 
         Pet ReadById(int id);
 
+        Pet ReadByIdWithOwner(int id);
+
         Pet CreatePet(Pet pet);
 
         Pet UpdatePet(Pet petUpdate);

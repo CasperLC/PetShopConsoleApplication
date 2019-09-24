@@ -78,7 +78,6 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Green",
-                PreviousOwner = owners[0],
                 Price = 100.00
             };
             temp.Add(pet1);
@@ -91,7 +90,6 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Blue",
-                PreviousOwner = owners[1],
                 Price = 200.00
             };
             temp.Add(pet2);
@@ -104,7 +102,6 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Black",
-                PreviousOwner = owners[2],
                 Price = 300.00
             };
             temp.Add(pet3);
@@ -117,7 +114,6 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Orange",
-                PreviousOwner = owners[3],
                 Price = 400.00
             };
             temp.Add(pet4);
@@ -130,7 +126,6 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Green",
-                PreviousOwner = owners[0],
                 Price = 500.00
             };
             temp.Add(pet5);
@@ -143,7 +138,6 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Blue",
-                PreviousOwner = owners[1],
                 Price = 600.00
             };
             temp.Add(pet6);
@@ -156,7 +150,6 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Black",
-                PreviousOwner = owners[2],
                 Price = 777.77
             };
             temp.Add(pet7);
@@ -169,7 +162,6 @@ namespace PetShop2019.Infrastructure.Data
                 Birthdate = DateTime.Today,
                 SoldDate = DateTime.Now,
                 Color = "Orange",
-                PreviousOwner = owners[3],
                 Price = 800.00
             };
             temp.Add(pet8);

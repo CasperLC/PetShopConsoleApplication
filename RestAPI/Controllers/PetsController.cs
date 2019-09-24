@@ -27,13 +27,27 @@ namespace RestAPI.Controllers
             return _petService.GetPets();
         }
 
+        // GET api/pets/5
+        [HttpGet("{id}")]
+        public ActionResult<Pet> Get(int id)
+        {
+            try
+            {
+                return _petService.ReadPetByIdWithOwner(id);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         // POST api/values
         [HttpPost]
         public ActionResult<Pet> Post([FromBody] Pet pet)
         {
             try
             {
-                return Ok(_petService.CreatePet(pet.Name, pet.Type, pet.Birthdate, pet.SoldDate, pet.Color, pet.PreviousOwner, pet.Price));
+                return Ok(_petService.CreatePet(pet));
             }
             catch (Exception e)
             {
@@ -51,8 +65,7 @@ namespace RestAPI.Controllers
             }
             try
             {
-                return Ok(_petService.UpdatePet(id, pet.Name, pet.Type, pet.Birthdate, pet.SoldDate, pet.Color, pet.PreviousOwner,
-                    pet.Price));
+                return Ok(_petService.UpdatePet(pet));
             }
             catch (Exception e)
             {

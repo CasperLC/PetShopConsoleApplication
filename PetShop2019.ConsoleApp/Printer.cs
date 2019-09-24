@@ -160,7 +160,7 @@ namespace PetShop2019.ConsoleApp
             {
                 Console.WriteLine($"Please enter a valid price (Example 150.00)");
             }
-            _petService.CreatePet(petName, petType, petBirthDate, petSoldDate, petColor, petPreOwner, petPrice);
+            //_petService.CreatePet(petName, petType, petBirthDate, petSoldDate, petColor, petPreOwner, petPrice);
 
             Console.WriteLine($"Pet Creation Completed.");
 
@@ -237,7 +237,7 @@ namespace PetShop2019.ConsoleApp
                 Console.WriteLine($"Please enter a valid price (Example 150.00)");
             }
 
-            _petService.UpdatePet(petID, petName, petType, petBirthDate, petSoldDate, petColor, petPreOwner, petPrice);
+            //_petService.UpdatePet(petID, petName, petType, petBirthDate, petSoldDate, petColor, petPreOwner, petPrice);
 
             Console.WriteLine($"The pet information has been updated");
 
