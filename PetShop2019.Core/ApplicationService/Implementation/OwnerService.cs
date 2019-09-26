@@ -21,6 +21,20 @@ namespace PetShop2019.Core.ApplicationService.Implementation
             return _ownerRepo.ReadOwners().ToList();
         }
 
+        public List<Owner> ReadFilteredOwners(Filter filter)
+        {
+            if (filter.CurrentPage < 0 || filter.ItemsPrPage < 0)
+            {
+                throw new InvalidDataException("CurrentPage and ItemsPrPage can not be below 0");
+            }
+
+            if ((filter.CurrentPage - 1 * filter.ItemsPrPage) >= _ownerRepo.Count())
+            {
+                throw new InvalidDataException("Index out of bounds, CurrentPage too high");
+            }
+            return _ownerRepo.ReadOwners(filter).ToList();
+        }
+
         public Owner ReadOwnerById(int id)
         {
             if (!IdVerifier(id))

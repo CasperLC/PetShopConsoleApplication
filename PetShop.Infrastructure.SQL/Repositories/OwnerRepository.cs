@@ -15,9 +15,22 @@ namespace PetShop.Infrastructure.SQL.Repositories
             _context = context;
         }
 
-        public IEnumerable<Owner> ReadOwners()
+        public IEnumerable<Owner> ReadOwners(Filter filter)
         {
-            return _context.Owners.ToList();
+            if (filter == null)
+            {
+                return _context.Owners.ToList();
+            }
+
+            return _context.Owners
+                .Skip((filter.CurrentPage - 1) * filter.ItemsPrPage)
+                .Take(filter.ItemsPrPage);
+
+        }
+
+        public int Count()
+        {
+            return _context.Owners.Count();
         }
 
         public Owner ReadOwnerById(int id)
@@ -37,17 +50,29 @@ namespace PetShop.Infrastructure.SQL.Repositories
 
         public Owner UpdateOwner(Owner owner)
         {
+            //Save PetOwners before attach overrides
+            var newOwnerList = new List<PetOwner>(owner.PetOwners);
+
+            //Attach updated owner entity
             _context.Attach(owner).State = EntityState.Modified;
+
+            //Delete old PetOwners with this ownerId
+            _context.PetOwners.RemoveRange(
+                _context.PetOwners.Where(po=>po.OwnerId==owner.id));
+
+            /*_context.Attach(owner).State = EntityState.Modified;*/
             _context.SaveChanges();
             return owner;
         }
 
         public Owner DeleteOwner(int id)
         {
-            var ownerToRemove = _context.Owners.FirstOrDefault(o => o.id == id);
-            _context.Remove(ownerToRemove);
+           /* _context.PetOwners.RemoveRange(
+                _context.PetOwners.Where(po=>po.OwnerId==id));*/
+
+            var entityRemoved = _context.Remove(new Owner { id = id }).Entity;
             _context.SaveChanges();
-            return ownerToRemove;
+            return entityRemoved;
         }
     }
 }

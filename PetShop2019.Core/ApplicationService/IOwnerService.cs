@@ -7,6 +7,8 @@ namespace PetShop2019.Core.ApplicationService
     {
         List<Owner> ReadOwners();
 
+        List<Owner> ReadFilteredOwners(Filter filter);
+
         Owner ReadOwnerById(int id);
 
         Owner CreateOwner(Owner owner);

@@ -21,9 +21,25 @@ namespace RestAPI.Controllers
         }
         // GET api/owners
         [HttpGet]
-        public ActionResult<IEnumerable<Owner>> Get()
+        public ActionResult<IEnumerable<Owner>> Get([FromQuery] Filter filter)
         {
-            return _ownerService.ReadOwners();
+            try
+            {
+                if (filter.CurrentPage == 0 && filter.ItemsPrPage == 0)
+                {
+                    return Ok(_ownerService.ReadOwners());
+                }
+                else
+                {
+                    return Ok(_ownerService.ReadFilteredOwners(filter));
+                }
+                
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         // GET api/owners/5

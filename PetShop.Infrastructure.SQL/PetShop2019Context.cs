@@ -27,12 +27,12 @@ namespace PetShop.Infrastructure.SQL
             modelBuilder.Entity<PetOwner>()
                 .HasOne(po => po.Owner)
                 .WithMany(o => o.PetOwners)
-                .HasForeignKey(po => po.OwnerId);
+                .HasForeignKey(po => po.OwnerId).OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<PetOwner>()
                 .HasOne(po => po.Pet)
                 .WithMany(p => p.PetOwners)
-                .HasForeignKey(po => po.PetId);
+                .HasForeignKey(po => po.PetId).OnDelete(DeleteBehavior.SetNull);
 
             
         }

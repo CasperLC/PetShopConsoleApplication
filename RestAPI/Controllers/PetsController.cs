@@ -22,9 +22,24 @@ namespace RestAPI.Controllers
         }
         // GET api/pets
         [HttpGet]
-        public ActionResult<IEnumerable<Pet>> Get()
+        public ActionResult<IEnumerable<Pet>> Get([FromQuery] Filter filter)
         {
-            return _petService.GetPets();
+            try
+            {
+                if (filter.CurrentPage == 0 && filter.ItemsPrPage == 0)
+                {
+                    return Ok(_petService.GetPets());
+                }
+                else
+                {
+                    return Ok(_petService.GetFilteredPets(filter));
+                }
+                
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         // GET api/pets/5

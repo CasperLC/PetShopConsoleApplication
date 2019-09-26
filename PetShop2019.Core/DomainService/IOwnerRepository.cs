@@ -5,7 +5,9 @@ namespace PetShop2019.Core.DomainService
 {
     public interface IOwnerRepository
     {
-        IEnumerable<Owner> ReadOwners();
+        IEnumerable<Owner> ReadOwners(Filter filter = null);
+
+        int Count();
 
         Owner ReadOwnerById(int id);
 

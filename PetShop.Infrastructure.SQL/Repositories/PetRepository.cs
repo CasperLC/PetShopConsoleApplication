@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization.Formatters;
 using Microsoft.EntityFrameworkCore;
 using PetShop2019.Core.DomainService;
 using PetShop2019.Core.Entities;
@@ -14,9 +15,22 @@ namespace PetShop.Infrastructure.SQL.Repositories
         {
             _context = context;
         }
-        public IEnumerable<Pet> ReadPets()
+        public IEnumerable<Pet> ReadPets(Filter filter)
         {
-            return _context.Pets.ToList();
+            if (filter == null)
+            {
+                return _context.Pets.ToList();
+            }
+
+            return _context.Pets
+                .Skip((filter.CurrentPage - 1) * filter.ItemsPrPage)
+                .Take(filter.ItemsPrPage);
+
+        }
+
+        public int Count()
+        {
+            return _context.Pets.Count();
         }
 
         public Pet ReadById(int id)
@@ -44,7 +58,18 @@ namespace PetShop.Infrastructure.SQL.Repositories
 
         public Pet UpdatePet(Pet petUpdate)
         {
+            //Clone pet owners to avoid override on attach
+            var newPetOwners = new List<PetOwner>(petUpdate.PetOwners);
+
+            //Attach basic properties
             _context.Attach(petUpdate).State = EntityState.Modified;
+
+            //Remove old POs
+            _context.PetOwners.RemoveRange(
+                _context.PetOwners.Where(po => po.PetId == petUpdate.ID)
+                );
+
+            //Save
             _context.SaveChanges();
 
             return petUpdate;

@@ -6,7 +6,9 @@ namespace PetShop2019.Core.DomainService
 {
     public interface IPetRepository
     {
-        IEnumerable<Pet> ReadPets();
+        IEnumerable<Pet> ReadPets(Filter filter = null);
+
+        int Count();
 
         Pet ReadById(int id);
 

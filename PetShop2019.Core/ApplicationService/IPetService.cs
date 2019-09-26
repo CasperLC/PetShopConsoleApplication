@@ -10,6 +10,9 @@ namespace PetShop2019.Core.ApplicationService
         //Gets and returns a list of all pets
         List<Pet> GetPets();
 
+        //Gets pets using the filter entity
+        List<Pet> GetFilteredPets(Filter filter);
+
         //Gets and returns a list of pets of the given type
         List<Pet> GetPetsByType(string type);
 
