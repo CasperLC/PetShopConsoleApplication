@@ -26,18 +26,23 @@ namespace RestAPI
 {
     public class Startup
     {
+
+        public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
+
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
             Environment = env;
         }
 
-        public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add CORS
+            services.AddCors();
+
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
@@ -64,17 +69,29 @@ namespace RestAPI
             }
 
             services.AddTransient<IDbInitializer, DbInitializer>();
-            
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //Initialize Data
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                //Initialize database
+                var services = scope.ServiceProvider;
+                var dbContext = services.GetService<PetShop2019Context>();
+                var dbInitializer = services.GetService<IDbInitializer>();
+                dbInitializer.Initialize(dbContext);
+            }
 
             if (env.IsDevelopment())
             {
+
+
 
                 //Initialize Data
                 using (var scope = app.ApplicationServices.CreateScope())
@@ -96,6 +113,10 @@ namespace RestAPI
             }
 
             app.UseHttpsRedirection();
+
+            // Enable CORS
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             app.UseMvc();
         }
     }

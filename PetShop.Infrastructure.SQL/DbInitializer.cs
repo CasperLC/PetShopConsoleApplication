@@ -56,11 +56,9 @@ namespace PetShop.Infrastructure.SQL
                 PetOwners = new List<PetOwner>{new PetOwner()
                 {
                     Owner = owner1,
-                    OwnerId = owner1.id
                 }, new PetOwner()
                 {
                     Owner = owner2,
-                    OwnerId = owner2.id
                 }}
             }).Entity;
 
@@ -75,7 +73,6 @@ namespace PetShop.Infrastructure.SQL
                 PetOwners = new List<PetOwner>{new PetOwner()
                 {
                     Owner = owner2,
-                    OwnerId = owner2.id
                 }}
             }).Entity;
             
